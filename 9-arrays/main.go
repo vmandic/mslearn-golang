@@ -40,4 +40,27 @@ func main() {
 		monthMsg := fmt.Sprintf("Month %d: %s", i+1, v)
 		fmt.Println(monthMsg)
 	}
+
+	// NOTE: append() adds elements at end of an array
+	var numbers2 []int
+
+	for i := 0; i < 10; i++ {
+		// NOTE how capacity grows by factor of 2, a geometric progression
+		numbers2 = append(numbers2, i)
+		fmt.Printf("%d\tcap=%d\t%v\n", i, cap(numbers2), numbers2)
+	}
+
+	newArr := removeStringFromArray(months, "August")
+	fmt.Println("Removed August:", newArr)
+}
+
+func removeStringFromArray(arr []string, element string) []string {
+	for i, v := range arr {
+		if v == element {
+			newArr := append(arr[:i], arr[i+1:]...) // NOTE: You can pass a slice s directly to a variadic function if you unpack it with the s... notation.
+			return newArr
+		}
+	}
+
+	return arr
 }
